@@ -6,8 +6,8 @@ from .models import Profile, Post, Comment
 
 class CreateUserView(generics.CreateAPIView):
   serializer_class = serializers.UserSerializer
-  permission_classes = (AllowAny) # For not JWT Auth allowed user to create new user 
-  
+  # For not JWT Auth allowed user to create new user 
+  permission_classes = (AllowAny,)
 
 class ProfileViewSet(viewsets.ModelViewSet):
   queryset = Profile.objects.all()
