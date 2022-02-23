@@ -3,12 +3,12 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 from django.conf import settings
 
 def upload_avatar_path(instance, filename):
-  ext = filename.split('_')[-1]
-  return '/'.join(['avatars'], str(instance.userProfile.id) + str(instance.nickName) + str('.') + str(ext))
+  ext = filename.split('.')[-1]
+  return '/'.join(['avatars', str(instance.userProfile.id)+str(instance.nickName)+str(".")+str(ext)])
 
 def upload_post_path(instance, filename):
-  ext = filename.split('_')[-1]
-  return '/'.join(['posts'], str(instance.userPost.id) + str(instance.title) + str('.') + str(ext))
+  ext = filename.split('.')[-1]
+  return '/'.join(['posts', str(instance.userPost.id)+str(instance.title)+str(".")+str(ext)])
 
 class UserManager(BaseUserManager):
   def create_user(self, email, password=None):
