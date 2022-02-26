@@ -52,7 +52,7 @@ export const Auth: VFC = memo(() => {
   const isLoadingAuth = useSelector(selectIsLoadingAuth)
   const openSignIn = useSelector(selectOpenSignIn)
   const openSignUp = useSelector(selectOpenSignUp)
-  const dispatch: AppDispatch = useDispatch
+  const dispatch: AppDispatch = useDispatch()
 
   const onSignUp = async (values: PROPS_AUTH) => {
     await dispatch(fetchCredStart())
