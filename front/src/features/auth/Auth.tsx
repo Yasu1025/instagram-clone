@@ -116,7 +116,7 @@ export const Auth: VFC = memo(() => {
               <form onSubmit={handleSubmit}>
                 <div className={styles.auth_signUp}>
                   <h1 className={styles.auth_title}>Insta Clone</h1>
-                  <hr />
+                  <br />
                   <div className={styles.auth_progress}>
                     {isLoadingAuth && <CircularProgress />}
                   </div>
@@ -132,6 +132,8 @@ export const Auth: VFC = memo(() => {
                   {touched.email && errors.email ? (
                     <div className={styles.auth_error}>{errors.email}</div>
                   ) : null}
+
+                  <br />
 
                   <TextField
                     placeholder="password"
