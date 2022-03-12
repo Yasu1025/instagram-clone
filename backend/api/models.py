@@ -62,7 +62,7 @@ class Post(models.Model):
   )
   created_on = models.DateTimeField(auto_now_add=True)
   img = models.ImageField(blank=True, null=True, upload_to=upload_post_path)
-  liked = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='linked', blank=True)
+  liked = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='liked', blank=True)
 
   def __str__(self):
     return self.title

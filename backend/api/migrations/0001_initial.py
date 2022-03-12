@@ -53,7 +53,7 @@ class Migration(migrations.Migration):
                 ('title', models.CharField(max_length=100)),
                 ('created_on', models.DateTimeField(auto_now_add=True)),
                 ('img', models.ImageField(blank=True, null=True, upload_to=api.models.upload_post_path)),
-                ('linked', models.ManyToManyField(blank=True, related_name='linked', to=settings.AUTH_USER_MODEL)),
+                ('liked', models.ManyToManyField(blank=True, related_name='liked', to=settings.AUTH_USER_MODEL)),
                 ('userPost', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='userPost', to=settings.AUTH_USER_MODEL)),
             ],
         ),

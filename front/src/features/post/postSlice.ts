@@ -29,7 +29,7 @@ const initialState: PostState = {
       userPost: 0,
       created_on: '',
       img: '',
-      liked: 0,
+      liked: [0],
     },
   ],
   comments: [
@@ -114,7 +114,7 @@ export const fetchAsyncPatchLiked = createAsyncThunk(
     } else if (currentLiked.length === 1) {
       uploadData.append('title', liked.title)
       // init liked (empty array)
-      const res = await axios.put(`${apiUrlPost}${liked.id}`, uploadData, {
+      const res = await axios.put(`${apiUrlPost}${liked.id}/`, uploadData, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `JWT ${localStorage.localJWTToken}`,
@@ -124,7 +124,7 @@ export const fetchAsyncPatchLiked = createAsyncThunk(
     }
 
     // upload is here
-    const res = await axios.patch(`${apiUrlPost}${liked.id}`, uploadData, {
+    const res = await axios.patch(`${apiUrlPost}${liked.id}/`, uploadData, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `JWT ${localStorage.localJWTToken}`,
@@ -141,7 +141,7 @@ export const postSlice = createSlice({
     fetchPostStart(state) {
       state.isLoadingPost = true
     },
-    fetchPostend(state) {
+    fetchPostEnd(state) {
       state.isLoadingPost = false
     },
     setOpenNewPost(state) {
@@ -185,7 +185,7 @@ export const postSlice = createSlice({
   },
 })
 
-export const { fetchPostStart, fetchPostend, setOpenNewPost, setCloseNewPost } =
+export const { fetchPostStart, fetchPostEnd, setOpenNewPost, setCloseNewPost } =
   postSlice.actions
 
 export const selectIsLoadingPost = (state: RootState) =>

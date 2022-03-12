@@ -17,7 +17,7 @@ export interface Post {
   userPost: number
   created_on: string
   img: string
-  liked: number
+  liked: number[]
 }
 
 export interface Comment {

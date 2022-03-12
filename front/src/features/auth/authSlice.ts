@@ -108,7 +108,7 @@ export const fetchAsyncGetAllProfiles = createAsyncThunk(
         Authorization: `JWT ${localStorage.localJWTToken}`,
       },
     })
-    return res.data[0]
+    return res.data
   }
 )
 

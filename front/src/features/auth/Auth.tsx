@@ -18,15 +18,13 @@ import {
   setCloseSignIn,
   setOpenSignUp,
   setCloseSignUp,
-  setOpenProfile,
-  setCloseProfile,
-  editNickName,
   selectIsLoadingAuth,
   selectOpenSignIn,
   selectOpenSignUp,
+  fetchAsyncGetAllProfiles,
 } from './authSlice'
+import { fetchAsyncGetPosts, fetchAsyncGetComments } from '../post/postSlice'
 import { Button, CircularProgress, TextField } from '@material-ui/core'
-import { fetchAsyncGetAllProfiles } from './authSlice'
 import { PROPS_AUTH } from '../types'
 
 const customStyles = {
@@ -62,8 +60,8 @@ export const Auth: VFC = memo(() => {
       await dispatch(fetchAsyncCreateMyProfile({ nickname: 'anonymoous' }))
 
       await dispatch(fetchAsyncGetAllProfiles())
-      // await dispatch(fetchAsyncGetPosts()) // from post slice
-      // await dispatch(fetchAsyncGetComments()) // from comment slice
+      await dispatch(fetchAsyncGetPosts()) // from post slice
+      await dispatch(fetchAsyncGetComments()) // from comment slice
       await dispatch(fetchAsyncGetMyProfile())
     }
     await dispatch(fetchCredEnd())
@@ -75,8 +73,8 @@ export const Auth: VFC = memo(() => {
     const result = await dispatch(fetchAsyncLogin(values))
     if (fetchAsyncLogin.fulfilled.match(result)) {
       await dispatch(fetchAsyncGetAllProfiles())
-      // await dispatch(fetchAsyncGetPosts())
-      // await dispatch(fetchAsyncGetComments())
+      await dispatch(fetchAsyncGetPosts())
+      await dispatch(fetchAsyncGetComments())
       await dispatch(fetchAsyncGetMyProfile())
     }
     await dispatch(fetchCredEnd())
@@ -115,7 +113,7 @@ export const Auth: VFC = memo(() => {
             <div>
               <form onSubmit={handleSubmit}>
                 <div className={styles.auth_signUp}>
-                  <h1 className={styles.auth_title}>Insta Clone</h1>
+                  <h1 className={styles.auth_title}>SignUp</h1>
                   <br />
                   <div className={styles.auth_progress}>
                     {isLoadingAuth && <CircularProgress />}
@@ -209,7 +207,7 @@ export const Auth: VFC = memo(() => {
             <div>
               <form onSubmit={handleSubmit}>
                 <div className={styles.auth_signUp}>
-                  <h1 className={styles.auth_title}>Insta Clone</h1>
+                  <h1 className={styles.auth_title}>LogIn</h1>
                   <br />
                   <div className={styles.auth_progress}>
                     {isLoadingAuth && <CircularProgress />}
