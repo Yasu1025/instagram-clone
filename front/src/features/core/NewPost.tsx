@@ -1,21 +1,19 @@
 import React, { memo, VFC, useState } from 'react'
 import Modal from 'react-modal'
-import styles from './Core.module.css'
-
 import { useSelector, useDispatch } from 'react-redux'
 import { AppDispatch } from '../../app/store'
+
+import styles from './Core.module.css'
 
 import { File } from '../types'
 
 import {
-  editNickName,
-  selectMyProfile,
-  selectOpenProfile,
-  setCloseProfile,
-  fetchCredStart,
-  fetchCredEnd,
-  fetchAsyncUpdateProfile,
-} from '../auth/authSlice'
+  selectOpenNewPost,
+  setCloseNewPost,
+  fetchPostStart,
+  fetchPostEnd,
+  fetchAsyncPostNewPost,
+} from '../post/postSlice'
 
 import { Button, TextField, IconButton } from '@material-ui/core'
 import { MdAddAPhoto } from 'react-icons/md'
@@ -33,10 +31,10 @@ const customStyles = {
   },
 }
 
-const EditProfile: VFC = memo(() => {
+const NewPost: VFC = memo(() => {
   const dispatch: AppDispatch = useDispatch()
-  const isOpenProfile = useSelector(selectOpenProfile)
-  const myProfile = useSelector(selectMyProfile)
+  const isOpenNewPost = useSelector(selectOpenNewPost)
+  const [title, setTitle] = useState('')
   const [image, setImage] = useState<File | null>(null)
 
   const handlerEditPicture = () => {
@@ -44,40 +42,39 @@ const EditProfile: VFC = memo(() => {
     fileInput?.click()
   }
 
-  const onUpdateProfile = async (e: React.MouseEvent<HTMLElement>) => {
+  const onPostNewPost = async (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault()
     const packet = {
-      id: myProfile.id,
-      nickName: myProfile.nickName,
+      title,
       img: image,
     }
 
-    await dispatch(fetchCredStart())
-    await dispatch(fetchAsyncUpdateProfile(packet))
-    await dispatch(fetchCredEnd())
-    await dispatch(setCloseProfile())
+    await dispatch(fetchPostStart())
+    await dispatch(fetchAsyncPostNewPost(packet))
+    await dispatch(fetchPostEnd())
 
+    setTitle('')
     setImage(null)
+    dispatch(setCloseNewPost())
   }
 
   return (
     <>
       <Modal
-        isOpen={isOpenProfile}
+        isOpen={isOpenNewPost}
         onRequestClose={async () => {
-          await dispatch(setCloseProfile())
+          await dispatch(setCloseNewPost())
         }}
         style={customStyles}
       >
         <form className={styles.core_signUp}>
-          <h1 className={styles.core_title}>Insta Clone</h1>
+          <h1 className={styles.core_title}>SNS clone</h1>
 
           <br />
           <TextField
-            placeholder="nickname"
+            placeholder="Please enter caption"
             type="text"
-            value={myProfile?.nickName}
-            onChange={e => dispatch(editNickName(e.target.value))}
+            onChange={e => setTitle(e.target.value)}
           />
 
           <input
@@ -99,13 +96,12 @@ const EditProfile: VFC = memo(() => {
           )}
           <br />
           <Button
-            disabled={!myProfile?.nickName}
+            disabled={!title || !image}
             variant="contained"
             color="primary"
-            type="submit"
-            onClick={onUpdateProfile}
+            onClick={onPostNewPost}
           >
-            Update
+            New post
           </Button>
         </form>
       </Modal>
@@ -113,4 +109,4 @@ const EditProfile: VFC = memo(() => {
   )
 })
 
-export default EditProfile
+export default NewPost

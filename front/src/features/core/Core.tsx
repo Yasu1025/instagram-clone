@@ -37,6 +37,7 @@ import { Auth } from '../auth/Auth'
 import styles from './Core.module.css'
 import { Post } from '../post/Post'
 import EditProfile from './EditProfile'
+import NewPost from './NewPost'
 
 const StyledBadge = withStyles(theme => ({
   badge: {
@@ -124,6 +125,7 @@ export const Core: VFC = memo(() => {
     <div>
       <Auth />
       <EditProfile />
+      <NewPost />
       <div className={styles.core_header}>
         <h1 className={styles.core_title}>Insta Clone</h1>
         {myProfile?.nickName ? (

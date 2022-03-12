@@ -57,7 +57,7 @@ export const fetchAsyncPostNewPost = createAsyncThunk(
   async (newPost: PROPS_NEW_POST) => {
     const uploadData = new FormData()
     uploadData.append('title', newPost.title)
-    newPost.img && uploadData.append('image', newPost.img, newPost.img.name)
+    newPost.img && uploadData.append('img', newPost.img, newPost.img.name)
     const res = await axios.post(apiUrlPost, uploadData, {
       headers: {
         'Content-Type': 'application/json',
