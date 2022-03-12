@@ -35,7 +35,7 @@ export interface PROPS_AUTH {
 
 export interface PROPS_PROFILE {
   id: number
-  nickname: string
+  nickName: string
   img: File | null
 }
 

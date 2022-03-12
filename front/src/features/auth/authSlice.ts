@@ -72,7 +72,7 @@ export const fetchAsyncUpdateProfile = createAsyncThunk(
   'auth/profile/update',
   async (profile: PROPS_PROFILE) => {
     const newProfile = new FormData()
-    newProfile.append('nickName', profile.nickname)
+    newProfile.append('nickName', profile.nickName)
     profile.img && newProfile.append('img', profile.img, profile.img.name)
     const res = await axios.put(
       `${apiURL}api/profile/${profile.id}/`,

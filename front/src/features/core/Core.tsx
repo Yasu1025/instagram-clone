@@ -36,6 +36,7 @@ import { AppDispatch } from '../../app/store'
 import { Auth } from '../auth/Auth'
 import styles from './Core.module.css'
 import { Post } from '../post/Post'
+import EditProfile from './EditProfile'
 
 const StyledBadge = withStyles(theme => ({
   badge: {
@@ -82,6 +83,7 @@ export const Core: VFC = memo(() => {
           dispatch(setOpenSignIn())
           return null
         }
+        await dispatch(fetchAsyncGetMyProfile())
         await dispatch(fetchAsyncGetPosts())
         await dispatch(fetchAsyncGetAllProfiles())
         await dispatch(fetchAsyncGetComments())
@@ -121,6 +123,7 @@ export const Core: VFC = memo(() => {
   return (
     <div>
       <Auth />
+      <EditProfile />
       <div className={styles.core_header}>
         <h1 className={styles.core_title}>Insta Clone</h1>
         {myProfile?.nickName ? (
