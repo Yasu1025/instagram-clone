@@ -11,6 +11,22 @@ export interface Profile {
   img: string
 }
 
+export interface Post {
+  id: number
+  title: string
+  userPost: number
+  created_on: string
+  img: string
+  liked: number
+}
+
+export interface Comment {
+  id: number
+  text: string
+  userComment: number
+  post: number
+}
+
 // For authSlice.ts
 export interface PROPS_AUTH {
   email: string
@@ -30,7 +46,7 @@ export interface PROPS_NICKNAME {
 // For postSlice.ts
 export interface PROPS_NEW_POST {
   title: string
-  image: File | null
+  img: File | null
 }
 
 export interface PROPS_LIKED {
